@@ -38,7 +38,7 @@ const login = asyncHandler(async (req, res) => {
 			email: email ?? null,
 			username: email?.length > 0 ? null : username ?? null,
 			mobile: email?.length > 0 || username?.length > 0 ? null : mobile ?? null,
-			joinedOn: user.createdAt,
+			createdAt: user.createdAt,
 			id: user._id,
 			token: Auth.UserAuth_JWT.signToken(user),
 		});
@@ -82,7 +82,7 @@ const register = asyncHandler(async (req, res) => {
 				email: email ?? null,
 				username: email?.length > 0 ? null : username ?? null,
 				mobile: email?.length > 0 || username?.length > 0 ? null : mobile ?? null,
-				joinedOn: user.createdAt,
+				createdAt: user.createdAt,
 				id: user._id,
 				token: Auth.UserAuth_JWT.signToken(user),
 			});
@@ -99,7 +99,7 @@ router
 		asyncHandler(
 			validate([
 				body('mobile').isNumeric().isMobilePhone().optional(),
-				body('username').isAlphanumeric().optional(),
+				body('username').isAlphanumeric().optional().isLength({ min: 6 }),
 				body('email').isEmail().optional(),
 				body('password').isLength({ min: 8 }).isStrongPassword(),
 			])
