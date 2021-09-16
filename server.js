@@ -16,7 +16,7 @@ if (process.env.NODE_ENV === 'DEVELOPMENT') {
 }
 app.use(express.json());
 
-// To avoid localhost conflicts from chrome in sending http requests
+// To avoid localhost conflicts from chrome in sending http requests (could also use cors)
 app.use(function (req, res, next) {
 	res.setHeader('Access-Control-Allow-Origin', '*');
 	res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
