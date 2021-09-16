@@ -96,27 +96,23 @@ const register = asyncHandler(async (req, res) => {
 router
 	.route('/register')
 	.post(
-		asyncHandler(
-			validate([
-				body('mobile').isNumeric().isMobilePhone().optional(),
-				body('username').isAlphanumeric().optional().isLength({ min: 6 }),
-				body('email').isEmail().optional(),
-				body('password').isLength({ min: 8 }).isStrongPassword(),
-			])
-		),
+		validate([
+			body('mobile').isNumeric().isMobilePhone().optional(),
+			body('username').isAlphanumeric().optional().isLength({ min: 6 }),
+			body('email').isEmail().optional(),
+			body('password').isLength({ min: 8 }).isStrongPassword(),
+		]),
 		register
 	);
 router
 	.route('/login')
 	.post(
-		asyncHandler(
-			validate([
-				body('mobile').isMobilePhone().optional(),
-				body('username').isAlphanumeric().optional(),
-				body('email').isEmail().optional(),
-				body('password').isLength({ min: 8 }),
-			])
-		),
+		validate([
+			body('mobile').isMobilePhone().optional(),
+			body('username').isAlphanumeric().optional(),
+			body('email').isEmail().optional(),
+			body('password').isLength({ min: 8 }),
+		]),
 		login
 	);
 
