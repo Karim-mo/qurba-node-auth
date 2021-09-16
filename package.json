@@ -1,11 +1,24 @@
 {
-  "name": "qurba-node-auth",
-  "version": "1.0.0",
-  "description": "User Authentication API",
-  "main": "server.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "Karim Mohamed",
-  "license": "ISC"
+	"name": "qurba-node-auth",
+	"version": "1.0.0",
+	"description": "User Authentication API",
+	"main": "server.js",
+	"type": "module",
+	"scripts": {
+		"dev": "nodemon server.js"
+	},
+	"author": "Karim Mohamed",
+	"license": "ISC",
+	"dependencies": {
+		"colors": "^1.4.0",
+		"dotenv": "^10.0.0",
+		"express": "^4.17.1",
+		"express-validator": "^6.12.1",
+		"mongoose": "^6.0.6",
+		"qurba-node-common": "^1.1.4"
+	},
+	"devDependencies": {
+		"morgan": "^1.10.0",
+		"nodemon": "^2.0.12"
+	}
 }
