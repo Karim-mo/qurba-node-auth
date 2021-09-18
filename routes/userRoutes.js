@@ -34,13 +34,15 @@ const login = asyncHandler(async (req, res) => {
 		 * We nullify the rest of the fields and since they are sparsed, mongo wont index them during queries on that field
 		 */
 		res.json({
-			name: user.name,
-			email: email ?? null,
-			username: email?.length > 0 ? null : username ?? null,
-			mobile: email?.length > 0 || username?.length > 0 ? null : mobile ?? null,
-			createdAt: user.createdAt,
-			id: user._id,
-			token: Auth.UserAuth_JWT.signToken(user),
+			user: {
+				name: user.name,
+				email: email ?? null,
+				username: email?.length > 0 ? null : username ?? null,
+				mobile: email?.length > 0 || username?.length > 0 ? null : mobile ?? null,
+				createdAt: user.createdAt,
+				id: user._id,
+				token: Auth.UserAuth_JWT.signToken(user),
+			},
 		});
 	} else {
 		// Never send a 404 on login to avoid brute forcing accounts
@@ -78,13 +80,15 @@ const register = asyncHandler(async (req, res) => {
 
 		if (user) {
 			res.json({
-				name: user.name,
-				email: email ?? null,
-				username: email?.length > 0 ? null : username ?? null,
-				mobile: email?.length > 0 || username?.length > 0 ? null : mobile ?? null,
-				createdAt: user.createdAt,
-				id: user._id,
-				token: Auth.UserAuth_JWT.signToken(user),
+				user: {
+					name: user.name,
+					email: email ?? null,
+					username: email?.length > 0 ? null : username ?? null,
+					mobile: email?.length > 0 || username?.length > 0 ? null : mobile ?? null,
+					createdAt: user.createdAt,
+					id: user._id,
+					token: Auth.UserAuth_JWT.signToken(user),
+				},
 			});
 		} else {
 			res.status(500);
@@ -97,6 +101,7 @@ router
 	.route('/register')
 	.post(
 		validate([
+			body('name').isString().isAlpha(),
 			body('mobile').isNumeric().isMobilePhone().optional(),
 			body('username').isAlphanumeric().optional().isLength({ min: 6 }),
 			body('email').isEmail().optional(),
